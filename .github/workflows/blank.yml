@@ -40,7 +40,7 @@ jobs:
         uses: ahelal/actionjs@main
         # actions/hello-world-javascript-action@main
         with:
-          who-to-greet: "wwwww"
+          who-to-greet: "v1"
           #${{ inputs.who-to-greet }}
       - name: Fail
         run: |
