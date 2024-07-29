@@ -35,7 +35,9 @@ jobs:
           exit 1
       - name: Run if Create A fails
         if: failure()
-        run: echo "The Create A step failed."
+        run: |
+         echo "The Create A step failed."
+         ls -la
      # run this step if any of the above fails
 
   jobB:
