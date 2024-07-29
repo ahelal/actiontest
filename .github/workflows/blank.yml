@@ -37,7 +37,7 @@ jobs:
         run: ls -la
       - name: Print to Log
         id: print-to-log
-        uses: ahelal/bender-action@main
+        uses: ahelal/bender-action@dev
         with:
           az-openai-endpoint: "test"
           az-openai-key: "test"
