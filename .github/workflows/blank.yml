@@ -28,7 +28,12 @@ jobs:
           echo test, and deploy your project.
           echo "1" > a.text
       - name: Run ls 
-        run: ls -la 
+        run: ls -la
+      - name: Print to Log
+        id: print-to-log
+        uses: actions/hello-world-javascript-action@main
+        with:
+          who-to-greet: ${{ inputs.who-to-greet }}
       - name: Fail
         run: |
           echo "2" > a-fail.text
