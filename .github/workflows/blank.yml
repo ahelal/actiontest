@@ -28,7 +28,16 @@ jobs:
           echo test, and deploy your project.
           echo "1" > a.text
       - name: Run ls 
-        run: ls -la
+        run: ls -la 
+      - name: Fail
+        run: |
+          echo "2" > a-fail.text
+          exit 1
+      - name: Run if Create A fails
+        if: failure()
+        run: echo "The Create A step failed."
+     # run this step if any of the above fails
+
   jobB:
     runs-on: ubuntu-latest
     needs: jobA
