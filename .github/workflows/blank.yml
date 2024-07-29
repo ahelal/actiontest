@@ -28,7 +28,7 @@ jobs:
           echo test, and deploy your project.
           echo "1" > a.text
       - name: Run ls 
-        run: ls -l 
+        run: ls -la
   build2:
     runs-on: ubuntu-latest
     needs: build
@@ -40,4 +40,4 @@ jobs:
         run: |
           echo "1" > b.text
       - name: Run ls 
-        run: ls -l 
+        run: ls -la
