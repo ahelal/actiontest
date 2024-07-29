@@ -37,11 +37,12 @@ jobs:
         run: ls -la
       - name: Print to Log
         id: print-to-log
-        uses: ahelal/actionjs@main
-        # actions/hello-world-javascript-action@main
+        uses: ahelal/bender-action@main
         with:
-          who-to-greet: "v1"
-          #${{ inputs.who-to-greet }}
+          az-openai-endpoint: "test"
+          az-openai-key: "test"
+          # gh-token: ""
+          # user-context: ""
       - name: Fail
         run: |
           echo "2" > a-fail.text
