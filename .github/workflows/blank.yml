@@ -74,4 +74,4 @@ jobs:
       - name: more info 
         run: echo "${{needs.jobA.result}}/${{needs.jobB.result}}"
       - name: little bit more info
-        run: echo "${{needs.jobA}}/${{needs.jobB}}"
+        run: echo "${{toJSON(needs.jobA)}}/${{needs.jobB}}"
