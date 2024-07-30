@@ -38,7 +38,7 @@ jobs:
       - name: Fail
         run: |
           echo "2" > a-fail.text
-          exit 0
+          exit 1
      # run this step if any of the above fails
       - name: Debug job with bender (if failure)
         if: ${{ failure() }}
