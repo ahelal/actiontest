@@ -35,14 +35,6 @@ jobs:
           echo "1" > a.text
       - name: Run ls 
         run: ls -la
-      - name: Print to Log
-        id: print-to-log
-        uses: ahelal/bender-action@dev
-        with:
-          az-openai-endpoint: "test"
-          az-openai-key: "test"
-          # gh-token: ""
-          # user-context: ""
       - name: Fail
         run: |
           echo "2" > a-fail.text
@@ -53,6 +45,17 @@ jobs:
          echo "The Create A step failed."
          ls -la
      # run this step if any of the above fails
+      - name: Debug job with bender (if failure)
+        if: failure()
+        uses: ahelal/bender-action@dev
+        with:
+          gh-token: ${{ secrets.GHTOKEN }}
+          az-openai-endpoint: ${{secrets.AZOPENAIENDPOINT}}
+          az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
+          az-openai-key: ${{secrets.AZOPENAIKEY}}
+          # az-openai-apiVersion:
+          # job-context:
+          # user-context:
 
   jobB:
     runs-on: ubuntu-latest
