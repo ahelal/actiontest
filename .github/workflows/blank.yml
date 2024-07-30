@@ -64,7 +64,7 @@ jobs:
       - name: little bit more info
         run: echo "${{toJSON(needs.jobA)}}/${{needs.jobB}}"
       - name: Debug job with bender (if failure)
-        if: ${{ failure() }}
+        # if: ${{ failure() }}
         uses: ahelal/bender-action@dev
         with:
           gh-token: ${{ secrets.GHTOKEN }}
