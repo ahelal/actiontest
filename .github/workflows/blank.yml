@@ -73,3 +73,5 @@ jobs:
         run: echo "I only run if jobA or jobB fails"
       - name: more info 
         run: echo "${{needs.jobA.result}}/${{needs.jobB.result}}"
+      - name: little bit more info
+        run: echo "${{needs.jobA}}/${{needs.jobB}}"
