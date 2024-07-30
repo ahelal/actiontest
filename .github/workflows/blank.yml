@@ -41,7 +41,7 @@ jobs:
           exit 1
      # run this step if any of the above fails
       - name: Debug job with bender (if failure)
-        if: failure()
+        if: ${{ failure() }}
         uses: ahelal/bender-action@dev
         with:
           gh-token: ${{ secrets.GHTOKEN }}
