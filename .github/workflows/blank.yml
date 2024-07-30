@@ -50,7 +50,7 @@ jobs:
         uses: ahelal/bender-action@dev
         with:
           gh-token: ${{ secrets.GHTOKEN }}
-          az-openai-endpoint: ${{secrets.AZOPENAIENDPOINT}}
+          az-openai-endpoint: ${{env.AZOPENAIENDPOINT}}
           az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
           az-openai-key: ${{secrets.AZOPENAIKEY}}
           # az-openai-apiVersion:
