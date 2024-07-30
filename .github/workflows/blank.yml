@@ -70,4 +70,6 @@ jobs:
     if: ${{ always() && contains(needs.*.result, 'failure') }}
     steps:
       - name: Debug job with bender
-        run: echo "I if my needs fail"
+        run: echo "I only run if jobA or jobB fails"
+      - name: more info 
+        run: echo "${{needs.jobA.result}}/${{needs.jobB.result}}"
