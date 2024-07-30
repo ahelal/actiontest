@@ -39,11 +39,6 @@ jobs:
         run: |
           echo "2" > a-fail.text
           exit 1
-      - name: Run if Create A fails
-        if: failure()
-        run: |
-         echo "The Create A step failed."
-         ls -la
      # run this step if any of the above fails
       - name: Debug job with bender (if failure)
         if: failure()
