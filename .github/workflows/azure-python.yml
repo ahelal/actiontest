@@ -57,8 +57,7 @@ jobs:
           echo "dir_context=$(ls -R | tr '\n' '  ')" >> $GITHUB_ENV
 
       - name: test dir context
-        run: |
-          echo ${{ steps.getdir.outputs.dir_context }}
+        run: echo '${{ steps.getdir.outputs.dir_context }}'
 
       # - name: Debug job with bender (if failure)
       #   uses: ahelal/bender-action@context
