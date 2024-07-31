@@ -54,9 +54,9 @@ jobs:
         uses: actions/checkout@v4
       - name: Get dir context
         id: getdir
-        run: echo "::set-output name=dir::$(ls -R)"
+        run: echo "dir_context=$(ls -R)" >> "$GITHUB_ENV"
       - name: test
-        run: echo ${{ steps.getdir.outputs.dir }}
+        run: echo ${dir_context}
 
       - name: Debug job with bender (if failure)
         uses: ahelal/bender-action@context
@@ -65,7 +65,7 @@ jobs:
           az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
           az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
           az-openai-key: ${{secrets.AZOPENAIKEY}}
-          dir-context: ${{ steps.getdir.outputs.dir }}
+          dir-context: ${dir_context}
           # az-openai-apiVersion:
           # job-context:
           # user-context:
