@@ -47,11 +47,10 @@ jobs:
 
       - name: Get dir context
         id: getdir
-        # run: echo "dir_context=$(ls -R)" >> "$GITHUB_OUTPUT"
         run: |
           {
             echo 'dir_context<<EOF'
-            ls -Ra
+            ls -R
             echo EOF
           } >> "$GITHUB_ENV"
 
