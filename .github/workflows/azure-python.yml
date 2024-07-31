@@ -22,7 +22,7 @@ jobs:
         run: |
           pip install -r azure/python/requirements.txt
       - name: run script
-        run: python azure/python/createSSH.py.py
+        run: python azure/python/create_ssh.py
 
 #   python2:
 #     runs-on: ubuntu-latest
