@@ -4,14 +4,14 @@ on:
   push:
     branches: [ "main" ]
     paths:
-        - 'azure/**'
+        - 'azure/python/**'
   pull_request:
     branches: [ "main" ]
     paths:
-        - 'azure/**'
+        - 'azure/python/**'
 
 jobs:
-  python1:
+  python:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -24,22 +24,22 @@ jobs:
       - name: run script
         run: python azure/python/main.py
 
-  python2:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-            python-version: '3.10' 
-      - name: Install dependencies
-        run: |
-          pip install azure-identity paramiko azure-mgmt-compute
-      - name: run script
-        run: python azure/python/main.py
+#   python2:
+#     runs-on: ubuntu-latest
+#     steps:
+#       - uses: actions/checkout@v4
+#       - uses: actions/setup-python@v5
+#         with:
+#             python-version: '3.10' 
+#       - name: Install dependencies
+#         run: |
+#           pip install azure-identity paramiko azure-mgmt-compute
+#       - name: run script
+#         run: python azure/python/main.py
 
   bender:
     runs-on: ubuntu-latest
-    needs: [python1, python2]
+    needs: [python]
     if: ${{ always() && contains(needs.*.result, 'failure') }}
     steps:
       - name: Debug job with bender (if failure)
