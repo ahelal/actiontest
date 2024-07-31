@@ -42,13 +42,30 @@ jobs:
     needs: [python]
     if: ${{ always() && contains(needs.*.result, 'failure') }}
     steps:
+      # - name: Read VERSION file
+      #   id: getversion
+      #   run: echo "::set-output name=version::$(cat VERSION)"
+      # - uses: "marvinpinto/action-automatic-releases@latest"
+      #   with:
+      #     repo_token: "${{ secrets.GITHUB_TOKEN }}"
+      #     automatic_release_tag: v${{ steps.getversion.outputs.version }}.${{ steps.buildnumber.outputs.build_number }}
+      #     prerelease: false
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Get dir context
+        id: getdir
+        run: echo "::set-output name=dir::$(ls -R)"
+      - name: test
+        run: echo ${{ steps.getdir.outputs.dir }}
+
       - name: Debug job with bender (if failure)
-        uses: ahelal/bender-action@main
+        uses: ahelal/bender-action@context
         with:
           gh-token: ${{ secrets.GHTOKEN }}
           az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
           az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
           az-openai-key: ${{secrets.AZOPENAIKEY}}
+          dir-context: ${{ steps.getdir.outputs.dir }}
           # az-openai-apiVersion:
           # job-context:
           # user-context:
