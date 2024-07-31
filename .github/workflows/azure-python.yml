@@ -48,7 +48,8 @@ jobs:
       - name: Get dir context
         id: getdir
         run: echo "dir_context=$(ls -R)" >> "$GITHUB_OUTPUT"
-      - name: test
+
+      - name: test dir context
         run: echo ${{ steps.getdir.outputs.dir_context }}
 
       - name: Debug job with bender (if failure)
