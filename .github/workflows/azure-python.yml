@@ -54,7 +54,7 @@ jobs:
         #     echo EOF
         #   } >> "$GITHUB_ENV"
         run: |
-          echo "dir_context=$(ls -R | tr '\n' '  ')" >> $GITHUB_ENV
+          echo "dir_context=$(find . -path ./.git -prune -o -print | tr '\n' '  ')" >> $GITHUB_ENV
 
       - name: test dir context
         run: echo '${{ env.dir_context }}'
@@ -66,7 +66,7 @@ jobs:
       #     az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
       #     az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
       #     az-openai-key: ${{secrets.AZOPENAIKEY}}
-      #     dir-context: ${{ steps.getdir.outputs.dir_context }}
+      #     dir-context: ${{ env.dir_context }}
           # az-openai-apiVersion:
           # job-context:
           # user-context:
