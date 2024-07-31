@@ -47,7 +47,13 @@ jobs:
 
       - name: Get dir context
         id: getdir
-        run: echo "dir_context=$(ls -R)" >> "$GITHUB_OUTPUT"
+        # run: echo "dir_context=$(ls -R)" >> "$GITHUB_OUTPUT"
+        run: |
+          {
+            echo 'dir_context<<EOF'
+            ls -Ra
+            echo EOF
+          } >> "$GITHUB_ENV"
 
       - name: test dir context
         run: echo ${{ steps.getdir.outputs.dir_context }}
