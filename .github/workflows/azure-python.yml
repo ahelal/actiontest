@@ -54,19 +54,20 @@ jobs:
         #     echo EOF
         #   } >> "$GITHUB_ENV"
         run: |
-          echo 'dir_context=$(ls -R | | tr '\n' "\n")' >> $GITHUB_ENV
+          echo "dir_context=$(ls -R | tr '\n' '\n')" >> $GITHUB_ENV
 
       - name: test dir context
-        run: echo ${{ steps.getdir.outputs.dir_context }}
+        run: |
+          echo ${{ steps.getdir.outputs.dir_context }}
 
-      - name: Debug job with bender (if failure)
-        uses: ahelal/bender-action@context
-        with:
-          gh-token: ${{ secrets.GHTOKEN }}
-          az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
-          az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
-          az-openai-key: ${{secrets.AZOPENAIKEY}}
-          dir-context: ${{ steps.getdir.outputs.dir_context }}
+      # - name: Debug job with bender (if failure)
+      #   uses: ahelal/bender-action@context
+      #   with:
+      #     gh-token: ${{ secrets.GHTOKEN }}
+      #     az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
+      #     az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
+      #     az-openai-key: ${{secrets.AZOPENAIKEY}}
+      #     dir-context: ${{ steps.getdir.outputs.dir_context }}
           # az-openai-apiVersion:
           # job-context:
           # user-context:
