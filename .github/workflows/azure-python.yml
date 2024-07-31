@@ -54,7 +54,7 @@ jobs:
         #     echo EOF
         #   } >> "$GITHUB_ENV"
         run: |
-          echo "dir_context=$(ls -R | tr '\n' '\n')" >> $GITHUB_ENV
+          echo "dir_context=$(ls -R | tr '\n' ',')" >> $GITHUB_ENV
 
       - name: test dir context
         run: |
