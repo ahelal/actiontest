@@ -39,6 +39,3 @@ jobs:
           az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
           az-openai-key: ${{secrets.AZOPENAIKEY}}
           dir-context: ${{ env.dir_context }}
-          # az-openai-apiVersion:
-          # job-context:
-          # user-context:
