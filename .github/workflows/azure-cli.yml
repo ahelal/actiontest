@@ -31,7 +31,10 @@ jobs:
         id: getdir
         run: |
           echo "dir_context=$(find . -path ./.git -prune -o -print | tr '\n' '  ')" >> $GITHUB_ENV
-          echo "\'${{env.dir_context}}\'"
+          
+      - name: Echo dir context
+        run: echo "\'${{env.dir_context}}\'"
+
 
       - name: Run Bender (if failure)
         uses: ahelal/bender-action@fixes
