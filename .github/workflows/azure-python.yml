@@ -28,10 +28,8 @@ jobs:
       - name: Get dir context
         id: getdir
         run: |
-          echo "dir_context=$(find . -path ./.git -prune -o -print | tr '\n' ' ' | base64)" >> $GITHUB_ENV
-
-      - name: test dir context
-        run: echo '${{ env.dir_context }}'
+          echo "dir_context=$(find . -path ./.git -prune -o -print | base64 | tr '\n' ' ')" >> $GITHUB_ENV
+          echo "\'${{env.dir_context}}\'"
 
       - name: Run Bender (if failure)
         uses: ahelal/bender-action@main
@@ -41,6 +39,3 @@ jobs:
           az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
           az-openai-key: ${{secrets.AZOPENAIKEY}}
           dir-context: ${{ env.dir_context }}
-          # az-openai-apiVersion:
-          # job-context:
-          # user-context:
