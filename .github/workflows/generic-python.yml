@@ -1,10 +1,7 @@
-name: Azure
+name: Generic Python
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-    # paths:
-    #     - 'azure/python/**'
   pull_request:
     branches: [ "main" ]
 
@@ -16,11 +13,8 @@ jobs:
       - uses: actions/setup-python@v5
         with:
             python-version: '3.10' 
-      # - name: Install dependencies
-      #   run: |
-      #     pip install -r azure/python/requirements.txt
-      - name: run script
-        run: python azure/python/create_ssh.py
+      - name: Run python script
+        run: generic/python/main.py
 
   bender:
     runs-on: ubuntu-latest
