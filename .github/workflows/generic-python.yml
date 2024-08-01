@@ -26,13 +26,13 @@ jobs:
 
       - name: Get dir context
         id: getdir
-        run: echo "dir_context=$(find . -path ./.git -prune -o -print | base64 | tr '\n' ' 's )" >> $GITHUB_ENV
+        run: echo "dir_context=$(find . -path ./.git -prune -o -print | base64 | tr '\n' ' ')" >> $GITHUB_ENV
 
       - name: test dir context
         run: echo "dir context base64 '${{ env.dir_context }}"
 
       - name: Run Bender (if failure)
-        uses: ahelal/bender-action@context
+        uses: ahelal/bender-action@main
         with:
           gh-token: ${{ secrets.GHTOKEN }}
           az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}

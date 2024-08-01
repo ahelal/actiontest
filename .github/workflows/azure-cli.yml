@@ -10,14 +10,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
+
     - name: 'Az CLI login'
       uses: azure/login@v1
       with:
           creds: '${{ secrets.AZURE_CREDENTIALS }}'
+          auth-type: "SERVICE_PRINCIPAL"
+
     - name: 'Az CLI command'
-      run: az group list
-    - name: 'Az CLI command'
-      run: az group create --name myResourceGroup --location eastus
+      run: |
+        az group list
+        az group create --name myResourceGroup --location eastus
 
   bender:
     runs-on: ubuntu-latest
@@ -34,7 +37,6 @@ jobs:
       - name: Echo dir context
         run: echo "\'${{env.dir_context}}\'"
 
-
       - name: Run Bender (if failure)
         uses: ahelal/bender-action@fixes
         with:
@@ -43,6 +45,3 @@ jobs:
           az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
           az-openai-key: ${{secrets.AZOPENAIKEY}}
           dir-context: ${{ env.dir_context }}
-          # az-openai-apiVersion:
-          # job-context:
-          # user-context:
