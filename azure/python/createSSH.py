@@ -7,12 +7,10 @@ import os
 from azure.identity import ClientSecretCredential, DefaultAzureCredential
 from azure.mgmt.compute import ComputeManagementClient
 
-
 # Read from environment variables
-
 azure_credentials = os.environ['AZURE_CREDENTIALS']
 
-auth_data = json.load(azure_credentials)
+auth_data = json.loads(azure_credentials)
 
 client_id = auth_data['clientId']
 client_secret = auth_data['clientSecret']
