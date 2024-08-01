@@ -30,7 +30,7 @@ jobs:
       - name: Get dir context
         id: getdir
         run: |
-          echo "dir_context=$(find . -path ./.git -prune -o -print | tr '\n' '  ')" >> $GITHUB_ENV
+          echo "dir_context=$(find . -path ./.git -prune -o -print | tr '\n' ' ' | base64)" >> $GITHUB_ENV
           
       - name: Echo dir context
         run: echo "\'${{env.dir_context}}\'"
