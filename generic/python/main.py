@@ -11,5 +11,5 @@ try:
 except Exception as E:
     exc_type, exc_obj, exc_tb = sys.exc_info()
     fname = os.path.split(exc_tb.tb_frame.f_code.co_filename)[1]
-    print(f'Python error occurred. Unable to generate random number: filename: "{fname}". line number: {exc_tb.tb_lineno}')
+    print(f'Python error occurred. Unable to generate random number: filename: "{fname}". line number: {exc_tb.tb_lineno}', flush=True)
     os._exit(1)
