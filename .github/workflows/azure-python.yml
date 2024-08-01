@@ -1,0 +1,51 @@
+name: Azure Python
+on:
+  # Triggers the workflow on push or pull request events but only for the "main" branch
+  push:
+    branches: [ "main" ]
+    # paths:
+    #     - 'azure/python/**'
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+            python-version: '3.10' 
+      # - name: Install dependencies
+      #   run: |
+      #     pip install -r azure/python/requirements.txt
+      - name: run script
+        run: python azure/python/create_ssh.py
+
+  bender:
+    runs-on: ubuntu-latest
+    needs: [python]
+    if: ${{ always() && contains(needs.*.result, 'failure') }}
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get dir context
+        id: getdir
+        run: |
+          echo "dir_context=$(find . -path ./.git -prune -o -print | tr '\n' ' ' | base64)" >> $GITHUB_ENV
+
+      - name: test dir context
+        run: echo '${{ env.dir_context }}'
+
+      - name: Run Bender (if failure)
+        uses: ahelal/bender-action@context
+        with:
+          gh-token: ${{ secrets.GHTOKEN }}
+          az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
+          az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
+          az-openai-key: ${{secrets.AZOPENAIKEY}}
+          dir-context: ${{ env.dir_context }}
+          # az-openai-apiVersion:
+          # job-context:
+          # user-context:
