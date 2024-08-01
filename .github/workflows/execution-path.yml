@@ -1,4 +1,4 @@
-name: execution path
+name: Execution Path
 on:
   push:
     branches: [ "main" ]

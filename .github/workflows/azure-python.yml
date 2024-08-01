@@ -15,6 +15,13 @@ jobs:
             python-version: '3.10' 
       - name: Install dependencies
         run: pip install -r azure/python/requirements.txt
+
+      - name: 'Az CLI login'
+        uses: azure/login@v1
+        with:
+            creds: '${{ secrets.AZURE_CREDENTIALS }}'
+            auth-type: "SERVICE_PRINCIPAL"
+
       - name: run script
         run: python azure/python/createSSH.py
   bender:

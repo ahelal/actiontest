@@ -7,11 +7,10 @@ import os
 
 
 credential = DefaultAzureCredential()
-subscription_id = os.environ.get('AZURE_SUBSCRIPTION_ID')
-resource_group_name = "bender_tests"
+resource_group_name = "bender_test_rg"
 location = "eastus"
-compute_client = ComputeManagementClient(credential, subscription_id)
-ssh_key_name = 'your_ssh_key_name'
+compute_client = ComputeManagementClient(credential)
+ssh_key_name = 'test_ssh_key'
 
 # create a directory if it doesn't exist ssh_temp in this script path 
 if not os.path.exists('ssh_temp'):
