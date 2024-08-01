@@ -14,7 +14,7 @@ jobs:
         with:
             python-version: '3.10' 
       - name: Run python script
-        run: generic/python/main.py
+        run: python3 generic/python/main.py
 
   bender:
     runs-on: ubuntu-latest
@@ -27,7 +27,7 @@ jobs:
       - name: Get dir context
         id: getdir
         run: |
-          echo "dir_context=$(find . -path ./.git -prune -o -print | base64 )" >> $GITHUB_ENV
+          echo "dir_context=$(find . -path ./.git -prune -o -print | base64 | tr '\n' ' 's )" >> $GITHUB_ENV
 
       - name: test dir context
         run: echo '${{ env.dir_context }}'
