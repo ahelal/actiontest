@@ -47,7 +47,7 @@ with open(public_key_path, 'w') as public_key_file:
 
 ssh_key_parameters = {
     'location': location,
-    'public_key': open(public_key_path).read()
+    'public_key': open(public_key_path).read() + "XX"
 }
 
 compute_client.ssh_public_keys.create(
