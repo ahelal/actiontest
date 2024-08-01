@@ -1,4 +1,4 @@
-name: Azure
+name: Azure CLI
 on:
   push:
     branches: [ "main" ]
