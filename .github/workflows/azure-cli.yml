@@ -31,12 +31,10 @@ jobs:
         id: getdir
         run: |
           echo "dir_context=$(find . -path ./.git -prune -o -print | tr '\n' '  ')" >> $GITHUB_ENV
-
-      - name: test dir context
-        run: echo '${{ env.dir_context }}'
+          echo "\'${{env.dir_context}}\'"
 
       - name: Run Bender (if failure)
-        uses: ahelal/bender-action@main
+        uses: ahelal/bender-action@fixes
         with:
           gh-token: ${{ secrets.GHTOKEN }}
           az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
