@@ -32,7 +32,7 @@ jobs:
         run: echo "\'${{env.dir_context}}\'"
 
       - name: Run Bender (if failure)
-        uses: ahelal/bender-action@main
+        uses: ahelal/bender-action@${{vars.BENDER_VERSION}}
         with:
           gh-token: ${{ secrets.GHTOKEN }}
           az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
