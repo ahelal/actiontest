@@ -36,7 +36,7 @@ jobs:
         run: echo "\'${{env.dir_context}}\'"
 
       - name: Run Bender (if failure)
-        uses: ahelal/bender-action@typeScript
+        uses: ahelal/bender-action@main
         with:
           gh-token: ${{ secrets.GHTOKEN }}
           az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
