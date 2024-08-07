@@ -51,7 +51,7 @@ def xo_game():
         player_move()
         display_board()
         if check_win('X'):
-            print("Congratulations! You win!")
+            print("Congratulations! You win!..")
             break
         if check_draw():
             print("It's a draw!")
