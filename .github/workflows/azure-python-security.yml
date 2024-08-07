@@ -1,0 +1,43 @@
+name: Azure Python security
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+            python-version: '3.10' 
+      - name: Install dependencies
+        run: pip install -r azure/python/requirements.txt
+
+      - name: run script
+        run: python azure/python/createSSH.py
+        env:
+          AZURE_CREDENTIALS: '${{ secrets.AZURE_CREDENTIALS }}'
+  bender:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get dir context
+        id: getdir
+        run: |
+          echo "dir_context=$(find . -path ./.git -prune -o -print | base64 | tr '\n' ' ')" >> $GITHUB_ENV
+      - name: Echo dir context
+        run: echo "\'${{env.dir_context}}\'"
+
+      - name: Run Bender (if failure)
+        uses: ahelal/bender-action@main
+        with:
+          mode: 'pr'
+          gh-token: ${{ secrets.GHTOKEN }}
+          az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
+          az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
+          az-openai-key: ${{secrets.AZOPENAIKEY}}
+          dir-context: ${{ env.dir_context }}
+          files-selection: '\*.py$'
