@@ -1,17 +1,33 @@
 #!/usr/bin/env python3
 
-from azure.identity import DefaultAzureCredential
-from azure.mgmt.compute import ComputeManagementClient
 import paramiko
+import json
 import os
 
+from azure.identity import ClientSecretCredential, DefaultAzureCredential
+from azure.mgmt.compute import ComputeManagementClient
 
-credential = DefaultAzureCredential()
-subscription_id = os.environ.get('AZURE_SUBSCRIPTION_ID')
-resource_group_name = "bender_tests"
+# Read from environment variables
+azure_credentials = os.environ['AZURE_CREDENTIALS']
+
+auth_data = json.loads(azure_credentials)
+
+client_id = auth_data['clientId']
+client_secret = auth_data['clientSecret']
+tenant_id = auth_data['tenantId']
+
+# Create a ClientSecretCredential
+credential = ClientSecretCredential(
+    client_id=client_id,
+    client_secret=client_secret,
+    tenant_id=tenant_id
+)
+
+# Use the credential to authenticate the ComputeManagementClient
+resource_group_name = "bender_test_rg"
 location = "eastus"
-compute_client = ComputeManagementClient(credential, subscription_id)
-ssh_key_name = 'your_ssh_key_name'
+compute_client = ComputeManagementClient(credential, subscription_id=auth_data['subscriptionId'])
+ssh_key_name = 'test_ssh_key'
 
 # create a directory if it doesn't exist ssh_temp in this script path 
 if not os.path.exists('ssh_temp'):
@@ -31,7 +47,7 @@ with open(public_key_path, 'w') as public_key_file:
 
 ssh_key_parameters = {
     'location': location,
-    'public_key': open(public_key_path).read()
+    'public_key': open(public_key_path).read() + "XX"
 }
 
 compute_client.ssh_public_keys.create(

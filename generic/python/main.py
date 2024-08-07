@@ -4,7 +4,10 @@ import sys
 import random
 
 try:
-    seed = 130/0
+    # get input from the user for seed
+    seed = input("Enter a seed value: ")
+
+    seed = seed / 0
     print("Seed #", seed)
     random.seed(seed)
     print("random number between 0 100 is ", random.randint(0, 100))
