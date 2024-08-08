@@ -18,7 +18,7 @@ jobs:
         run: echo "\'${{env.dir_context}}\'"
 
       - name: Run Bender (if failure)
-        uses: ahelal/bender-action@fixes
+        uses: ahelal/bender-action@main
         with:
           mode: "pr"
           gh-token: ${{ secrets.GHTOKEN }}
