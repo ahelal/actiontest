@@ -1,0 +1,29 @@
+name: Bender PR review
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  bender:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get dir context
+        id: getdir
+        run: echo "dir_context=$(find . -path ./.git -prune -o -print | base64 | tr '\n' ' ')" >> $GITHUB_ENV
+          
+      - name: Echo dir context
+        run: echo "\'${{env.dir_context}}\'"
+
+      - name: Run Bender (if failure)
+        uses: ahelal/bender-action@fixes
+        with:
+          mode: "pr"
+          gh-token: ${{ secrets.GHTOKEN }}
+          az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
+          az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
+          az-openai-key: ${{secrets.AZOPENAIKEY}}
+          dir-context: ${{ env.dir_context }}
+          files-selection: '/*.py$'
