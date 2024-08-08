@@ -66,6 +66,5 @@ def xo_game():
             print("It's a draw!")
             break
 
-#main 
 if __name__ == "__main__":
     xo_game()
