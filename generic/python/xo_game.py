@@ -3,6 +3,12 @@ import random
 # Initialize the game board
 board = [' ' for _ in range(9)]
 
+def loadGame():
+    user_input = input("Enter game filename: ")
+    with open(user_input, 'r') as file:
+        content = file.read()
+        return  content
+
 def display_board():
     print(f"{board[0]} | {board[1]} | {board[2]}")
     print("--+---+--")
