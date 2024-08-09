@@ -3,6 +3,7 @@ import os
 import sys
 import random
 
+
 try:
     seed = 130/0
     print("Seed #", seed)
