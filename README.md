@@ -2,4 +2,4 @@
 
 ## Goal
 
-This repo is to test bender-action 2
+This repo is to test bender-action 3
