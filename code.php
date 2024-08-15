@@ -1,5 +1,4 @@
 <?php
-
 require_once('../_helpers/strip.php');
 
 // this database contains a table with 2 rows
@@ -26,3 +25,4 @@ if (strlen($id) > 0) {
   while ($row = $query->fetchArray()) {
     echo '<a href="/?id=' . $row['id'] . '">#' . $row['id'] . '</a><br />';
   }
+  
