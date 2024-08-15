@@ -1,25 +1,11 @@
-name: Generic Python
+name: Bender PR review
 on:
-  push:
-    branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  python:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with:
-            python-version: '3.10' 
-      - name: Run python script
-        run: python3 generic/python/main.py
-
   bender:
     runs-on: ubuntu-latest
-    needs: [python]
-    if: ${{ always() && contains(needs.*.result, 'failure') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,18 +13,17 @@ jobs:
       - name: Get dir context
         id: getdir
         run: echo "dir_context=$(find . -path ./.git -prune -o -print | base64 | tr '\n' ' ')" >> $GITHUB_ENV
-
-      - name: test dir context
-        run: echo "dir context base64 '${{ env.dir_context }}"
+          
+      - name: Echo dir context
+        run: echo "\'${{env.dir_context}}\'"
 
       - name: Run Bender (if failure)
         uses: ahelal/bender-action@main
         with:
+          mode: "pr"
           gh-token: ${{ secrets.GHTOKEN }}
           az-openai-endpoint: ${{vars.AZOPENAIENDPOINT}}
           az-openai-deployment: ${{secrets.AZOPENAIDEPLOYMENT}}
           az-openai-key: ${{secrets.AZOPENAIKEY}}
           dir-context: ${{ env.dir_context }}
-          # az-openai-apiVersion:
-          # job-context:
-          # user-context:
+          files-selection: '*.js'
